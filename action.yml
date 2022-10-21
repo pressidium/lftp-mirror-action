@@ -1,0 +1,67 @@
+name: 'lftp-mirror-action'
+author: 'Pressidium'
+description: 'Upload or update a directory tree via SFTP'
+inputs:
+  host:
+    description: 'The hostname of the SFTP server'
+    required: true
+  port:
+    description: 'The port of the SFTP server'
+    required: false
+    default: '22'
+  user:
+    description: 'The username to use for authentication'
+    required: true
+  pass:
+    description: 'The password to use for authentication'
+    required: true
+  forceSSL:
+    description: 'Refuse to send password in clear when server does not support SSL'
+    required: false
+    default: 'true'
+  verifyCertificate:
+    description: 'Verify server’s certificate to be signed by a known Certificate Authority'
+    required: false
+    default: 'true'
+  fingerprint:
+    description: 'Key fingerprint of the host we want to connect to'
+    required: false
+    default: ''
+  onlyNewer:
+    description: 'Only transfer files that are newer than the ones on the remote server'
+    required: false
+    default: 'true'
+  parallel:
+    description: 'Number of parallel transfers'
+    required: false
+    default: '1'
+  settings:
+    description: 'Any additional lftp settings to configure'
+    required: false
+    default: ''
+  localDir:
+    description: 'The local directory to copy from'
+    required: false
+    default: '.'
+  remoteDir:
+    description: 'The remote directory to copy to'
+    required: false
+    default: '/var/www/html/'
+  reverse:
+    description: 'Whether to copy from the remote to the local directory'
+    required: false
+    default: 'true'
+  ignoreFile:
+    description: 'The name of the file to use as the ignore list'
+    required: false
+    default: '.lftp_ignore'
+  options:
+    description: 'Any additional mirror command options to configure'
+    required: false
+    default: ''
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+branding:
+  icon: 'upload-cloud'
+  color: 'purple'
