@@ -238,6 +238,9 @@ if [[ -n "${INPUT_IGNOREFILE}" ]] && file_exists "${INPUT_IGNOREFILE}"; then
   excluded_files=$(< "${INPUT_IGNOREFILE}" grep -v '^#' | grep -v '^$' | sed 's/^/-X /' | tr '\n' ' ')
 fi
 
+# Make sure the `/root/.ssh` directory exists and is writable
+mkdir -p /root/.ssh && chmod 0700 /root/.ssh
+
 if [[ -n "${INPUT_FINGERPRINT}" ]]; then
   # If a fingerprint is set, we add it to the `known_hosts` file
   echo "Adding fingerprint to the known_hosts file"
@@ -245,9 +248,7 @@ if [[ -n "${INPUT_FINGERPRINT}" ]]; then
 else
   # If a fingerprint is not set, we automatically add the host to the `known_hosts` file
   echo "Adding host to the known_hosts file"
-  mkdir -p /root/.ssh \
-          && chmod 0700 /root/.ssh \
-          && ssh-keyscan -H -p "${INPUT_PORT}" "${INPUT_HOST}" >> /root/.ssh/known_hosts
+  ssh-keyscan -H -p "${INPUT_PORT}" "${INPUT_HOST}" >> /root/.ssh/known_hosts
 fi
 
 # Iterate over settings
