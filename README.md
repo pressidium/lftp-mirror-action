@@ -13,7 +13,10 @@
 
 ```yaml
 name: Deploy via SFTP
-on: push
+on:
+  push:
+    branches:
+      - main
 jobs:
   deploy:
     name: Deploy
