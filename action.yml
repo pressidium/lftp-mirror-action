@@ -31,10 +31,10 @@ inputs:
     description: 'Only transfer files that are newer than the ones on the remote server'
     required: false
     default: 'true'
-  onlyDifferent:
-    description: 'Only transfer files that are different than the ones on the remote server'
+  restoreMTime:
+    description: 'Restore the modification time of the files'
     required: false
-    default: 'false'
+    default: 'true'
   parallel:
     description: 'Number of parallel transfers'
     required: false
