@@ -59,6 +59,7 @@ jobs:
 | `verifyCertificate` | Verify server’s certificate to be signed by a known Certificate Authority | No       | `'true'`           |
 | `fingerprint`       | Key fingerprint of the host we want to connect to                         | No       | `''`               |
 | `onlyNewer`         | Only transfer files that are newer than the ones on the remote server     | No       | `'true'`           |
+| `onlyDifferent`     | Only transfer files that are different than the ones on the remote server | No       | `'false'`          |
 | `restoreMTime`      | Restore the modification time of the files (if necessary)                 | No       | `'true'`           |
 | `parallel`          | Number of parallel transfers                                              | No       | `'1'`              |
 | `settings`          | Any additional lftp settings to configure                                 | No       | `''`               |

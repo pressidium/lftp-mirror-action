@@ -19,6 +19,7 @@
 # - `INPUT_VERIFYCERTIFICATE` — Verify server's certificate to be signed by a known Certificate Authority
 # - `INPUT_FINGERPRINT` — The key fingerprint of the host we want to connect to
 # - `INPUT_ONLYNEWER` — Only transfer files that are newer than the ones on the remote server
+# - `INPUT_ONLYDIFFERENT` — Only transfer files that are different than the ones on the remote server
 # - `INPUT_PARALLEL` — Number of parallel transfers
 # - `INPUT_SETTINGS` — Any additional lftp settings to configure
 # - `INPUT_LOCALDIR` — The local directory to copy to (assuming `reverse` is set to `true`)
@@ -283,8 +284,8 @@ else
   echo "Ignoring invalid value for the 'parallel' input: ${INPUT_PARALLEL}"
 fi
 
-# Restore timestamps if the `--only-newer` flag is set
-if is_true "${INPUT_ONLYNEWER}"; then
+# Restore timestamps if the `onlyNewer` or `onlyDifferent` input flag is set
+if is_true "${INPUT_ONLYNEWER}" || is_true "${INPUT_ONLYDIFFERENT}"; then
   echo "Restoring the original modification time of files based on the date of the most recent commit..."
 
   # Disable Git ownership check

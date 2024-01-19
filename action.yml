@@ -31,6 +31,10 @@ inputs:
     description: 'Only transfer files that are newer than the ones on the remote server'
     required: false
     default: 'true'
+  onlyDifferent:
+    description: 'Only transfer files that are different than the ones on the remote server'
+    required: false
+    default: 'false'
   parallel:
     description: 'Number of parallel transfers'
     required: false
