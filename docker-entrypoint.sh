@@ -72,6 +72,27 @@ to_lower () {
 }
 
 ###########################################################################
+# Check whether the input variable is boolean-like.
+# Arguments:
+#   The string to check.
+# Returns:
+#   0 if the value is boolean-like, 1 otherwise.
+###########################################################################
+is_boolean_like () {
+  local value
+  value=$(to_lower "$1")
+
+  if [[ "${value}" = "true" ]] || [[ "${value}" = "false" ]] || \
+     [[ "${value}" = "yes" ]] || [[ "${value}" = "no" ]] || \
+     [[ "${value}" = "1" ]] || [[ "${value}" = "0" ]] || \
+     [[ -z "${value}" ]]; then
+    return 0
+  else
+    return 1
+  fi
+}
+
+###########################################################################
 # Check whether the input variable is truthy.
 # Arguments:
 #   The string to check.
@@ -150,7 +171,11 @@ handle_setting () {
   local setting_value
 
   setting_name=$(echo "${setting}" | cut -d '=' -f 1)
-  setting_value=$(print_yes_no_opt "$(echo "${setting}" | cut -d '=' -f 2)")
+  setting_value=$(echo "${setting}" | cut -d '=' -f 2)
+
+  if is_boolean_like "${setting_value}"; then
+    setting_value=$(print_yes_no_opt "${setting_value}")
+  fi
 
   settings="${settings} set ${setting_name} ${setting_value};"
 }
